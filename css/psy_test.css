@@ -1,0 +1,37 @@
+
+.color_a {
+    background: #52606f;
+}
+
+.color_b {
+    background: #407D94;
+}
+
+.color_c {
+    background: #7B7687;
+}
+
+.color_d {
+    background: #ACADAC;
+}
+
+.color_e {
+    background: #CCC4C2;
+}
+
+.flexbox {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+}
+
+.border_f {
+    border: 1px solid #FFFFFF;
+}
+
+.color0A8{
+    color: #0A8;
+}
+.border08B{
+    border: 1px solid #08B;
+}

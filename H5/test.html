@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="../css/witcs.css">
+    <link rel="stylesheet" href="../css/psy_test.css">
+    <script src="../js/witjs.js"></script>
+    <title>健康测试</title>
+</head>
+<style>
+    /**
+      * 单选框自定义样式
+      **/
+    input[type=radio] {
+        /*去除浏览器默认样式*/
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        /*自定义样式*/
+        position: relative;
+        display: inline-block;
+        vertical-align: super;
+        margin-right: 10px;
+        border: 1px solid #00aa88;
+        outline: none;
+        cursor: pointer;
+    }
+
+    /**
+    * 单选框 选中之后的样式
+    **/
+    input[type=radio]:after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        display: block;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background: #00aa88;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        transform: scale(0);
+        /*增加一些动画*/
+        -webkit-transition: all ease-in-out 100ms;
+        -moz-transition: all ease-in-out 100ms;
+        transition: all ease-in-out 100ms;
+    }
+
+    input[type=radio]:checked:after {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+
+    label:active {
+        background: #EEEEEE;
+    }
+</style>
+<body class="ofa ffWRYH bgc9" onload="loadend()" onresize="autocss()">
+<div id="s_select" class="none index999 fix bottom0 W11 CH callnone"></div>
+<header class="fix top0 W11 H AC bgc83">
+    <div class="FL"><img src="../images/back_w.png" class="FL B4M H4M P1M"
+                         onclick="window.location.href = 'index.html'"/></div>
+    手机依赖症测试
+    <div class="FR B4M H4M" ></div>
+</header>
+<div class="W11 MTH"></div>
+<div class="W11 P1M" id="t_main"></div>
+<div class=" bgc10 none" id="t_content"></div>
+<div id="t_result"></div>
+<div class="W11 fix bgc10 bottom0 none" id="t_sub"><div class="H A11 bgc83 rad05e AC  MA">提交</div></div>
+<footer></footer>
+</body>
+<script>
+    function loadend() {
+        autocss();
+        loadimg();
+        getIntro();
+        // getCtn(0);
+    }
+
+    var MPAI = {
+        introduction: "采用 Leung（2008）编制的手机成瘾指数量表（MPAI）。量表由 17 个项目组成，包括失控性、戒断性、逃避性、低效性四个维度。采用五点计分，得分越高表示手机成瘾倾向越明显。该量表在以往的研究中表现出良好的信效度（Leung, 2008;  黄海等, 2014）。手机成瘾指数量表采用1到5点计分，分别代表“完全不符合、基本符合、不确定、基本符合和完全符合”，量表总分范围为17-85分。",
+        topic: [
+            {
+                t_id: 0,
+                t_title: "在手机上耗费的时间直接导致你的办事效率降低。"
+            },
+            {
+                t_id: 1,
+                t_title: "你的朋友和家人曾因为你在用手机而抱怨。"
+            },
+            {
+                t_id: 2,
+                t_title: "有人说过你花了太多的时间在手机上面。"
+            },
+            // {
+            //     t_id: 3,
+            //     t_title: "你曾试图向其他人隐瞒你在手机上花了多长时间。"
+            // },
+            // {
+            //     t_id: 4,
+            //     t_title: "你的话费经常超支"
+            // },
+            // {
+            //     t_id: 5,
+            //     t_title: "你发现自己使用手机的时间比本来打算的要长。"
+            // },
+            // {
+            //     t_id: 6,
+            //     t_title: "你尝试在手机上少花些时间但是做不到。"
+            // },
+            // {
+            //     t_id: 7,
+            //     t_title: "你从未觉得在手机上花够了时间。"
+            // },
+            // {
+            //     t_id: 8,
+            //     t_title: "你当在手机信号区以外呆上一阵时，你总担心会错过电话。"
+            // },
+            // {
+            //     t_id: 9,
+            //     t_title: "你很难做到将手机关机。"
+            // },
+            // {
+            //     t_id: 10,
+            //     t_title: "如果你有一阵子没有查看即时信息或者手机没有开机，你会变得焦虑 。"
+            // },
+            // {
+            //     t_id: 11,
+            //     t_title: "没有手机你会心神不定。"
+            // },
+            // {
+            //     t_id: 12,
+            //     t_title: "如果你没有手机，你的朋友会很难能联系到你。"
+            // },
+            // {
+            //     t_id: 13,
+            //     t_title: "当感到被孤立时，你会用手机与别人聊天。"
+            // },
+            // {
+            //     t_id: 14,
+            //     t_title: "当心情低落的时候，你会玩手机来改善情绪。"
+            // },
+            // {
+            //     t_id: 15,
+            //     t_title: "当感到孤独的时候，你会用手机与别人聊天。"
+            // },
+            // {
+            //     t_id: 16,
+            //     t_title: "你发现在有其他必须要做的事情时却沉迷于手机，为此给你带来些麻烦。"
+            // }
+
+        ]
+    };
+    console.log(MPAI.introduction);
+
+    function getIntro() {
+        var main = document.getElementById("t_main");
+        var div = document.createElement("div");
+        div.innerHTML = '<div class="H10M W11 MA AC MT "><img class="H10M B10M MA" src="../images/mob.png" alt=""></div>' +
+            '<div class="M indent border08B P1M rad05e F3">' + MPAI.introduction + '</div>' +
+            '<div class="B10M H rad05e MA AC bgc103 MT2" onclick="begin_test()">开始测试</div>';
+        main.appendChild(div);
+        // <img src="../images/sublime(1).png" class="FL B4M H4M P1M"/>
+    }
+
+    function begin_test() {
+        var main = document.getElementById("t_main");
+        main.classList.add("none");
+        document.getElementById("t_content").classList.remove("none");
+        getCtn(0);
+    }
+
+    function getCtn(d) {
+        var cont = document.getElementById("t_content");
+
+
+        MPAI.topic.forEach(function (v) {
+            if (v.t_id === d) {
+                var div = document.createElement("div");
+                div.className = "mob_test";
+                div.id = "t_test"+d;
+                div.innerHTML = '<div class="H2M P1M">' +
+                    '<div class="FL  H2M W65 bgc7 ">' +
+                    '<div class="H2M AR colorA bgc103 border08B" style="width: ' + ((parseInt(v.t_id) + 1) / MPAI.topic.length) * 100 + '%"></div>' +
+                    '</div>' +
+                    '<div class="FL  W61 AC F3 color0A8">' + (parseInt(v.t_id) + 1) + "/" + MPAI.topic.length + '</div>' +
+                    '</div> ' +
+                    '<div class="W11 MT F4 P1M">' + (parseInt(v.t_id) + 1) + '.' + v.t_title + '</div>' +
+                    '<div class="fix bottom0 bgc10 W11 F4 LH3 t_radios">' +
+                    '   <div class="W11">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio1' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio1' + v.t_id + '" value="1" name="radio' + v.t_id + '"/>完全不符合' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11 ">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio2' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio2' + v.t_id + '" value="2" name="radio' + v.t_id + '"/>不符合' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11 ">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio3' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio3' + v.t_id + '" value="3" name="radio' + v.t_id + '"/>无法确定' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11 ">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio4' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio4' + v.t_id + '" value="4" name="radio' + v.t_id + '"/>符合' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio5' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio5' + v.t_id + '" value="5" name="radio' + v.t_id + '"/>完全符合' +
+                    '        </label>' +
+                    '    </div></div>';
+                cont.appendChild(div);
+            }
+
+        });
+
+        var labels = document.getElementsByTagName("label");
+        for (var j in labels) {
+            labels[j].onclick = function () {
+                var radio_name = "radio" + d;
+                var t_test = "t_test" + d;
+                var radios = document.getElementsByName(radio_name);
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        i++;
+                        console.log("第"+parseInt(d+1)+"题","选择"+radios[i-1].value+"分");
+                        if (d === MPAI.topic.length - 1) {
+                            var sub = document.getElementById("t_sub");
+                            var t_radio = document.getElementsByClassName("t_radios");
+                            t_radio[d].classList.add("bottomH");
+                            sub.classList.remove("none");
+                            sub.onclick = function () {
+                                this.classList.add("none");
+                                cont.classList.add("none");
+                                var t_value =  getVle();
+                                var t_result_cont = "";
+                                if (t_value >= 17 && t_value <= 42) {
+                                    t_result_cont = "您属于正常手机使用者";
+                                } else if (t_value >= 43 && t_value <= 68) {
+                                    t_result_cont = "您具有手机依赖倾向";
+                                } else if (t_value >= 69 && t_value <= 85) {
+                                    t_result_cont = "您已经具有手机成瘾症状";
+                                }
+                                var result = document.getElementById("t_result");
+                                var div = document.createElement("div");
+                                div.className = "P1M W11 MA AC";
+                                div.innerHTML = '<div class="P1M  F4 AC color8">测试得分</div>' +
+                                    '<div class="W11 P1M"><div class="AC MA F8 B14M H14M colorR"><h1 class="W11 H11"  style="background:url(../images/fen.png) no-repeat center; -webkit-background-size: cover;background-size: cover;">' + t_value + '</h1></div>' +
+                                    '</div>' +
+                                    '<div class="P1M AC F4 color8">测试分析</div>' +
+                                    '<div class="W11 AC P1M F5 bold">' + t_result_cont + '</div>' +
+                                    '<div class="MT2 W11"><div class="B10M H rad05e MA AC bgc103" onclick="window.location.reload()">重新测试</div></div>';
+                                result.appendChild(div);
+                              document.getElementsByTagName("h1")[0].style.lineHeight = 14*M +"px";
+                            }
+
+                        } else {
+                            setTimeout(function () {
+                                document.getElementById(t_test).classList.add("none");
+                                getCtn(d + 1);
+                            }, 200)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+function getVle() {
+    var radios = document.querySelectorAll("input[type=radio]");
+    var cont = 0;
+    for (var i in radios) {
+        if (radios[i].checked) {
+            cont += parseInt(radios[i].value);
+        }
+    }
+   return cont;
+}
+</script>
+</html>

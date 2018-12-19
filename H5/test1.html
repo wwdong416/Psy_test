@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="../css/witcs.css">
+    <link rel="stylesheet" href="../css/psy_test.css">
+    <script src="../js/witjs.js"></script>
+    <title>健康测试</title>
+</head>
+<style>
+    /**
+      * 单选框自定义样式
+      **/
+    input[type=radio] {
+        /*去除浏览器默认样式*/
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        /*自定义样式*/
+        position: relative;
+        display: inline-block;
+        vertical-align: super;
+        margin-right: 10px;
+        border: 1px solid #00aa88;
+        outline: none;
+        cursor: pointer;
+
+    }
+
+    /**
+    * 单选框 选中之后的样式
+    **/
+    input[type=radio]:after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        display: block;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background: #00aa88;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        transform: scale(0);
+        /*增加一些动画*/
+        -webkit-transition: all ease-in-out 300ms;
+        -moz-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms;
+    }
+
+    input[type=radio]:checked:after {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+
+    label:active {
+        background: #EEEEEE;
+    }
+</style>
+<body class="ofa ffWRYH bgc9" onload="loadend()" onresize="autocss()">
+<div id="s_select" class="none index999 fix bottom0 W11 CH callnone"></div>
+<header class="fix top0 W11 H AC bgc83">
+    <div class="FL"><img src="../images/back_w.png" class="FL B4M H4M P1M"
+                         onclick="window.location.href = 'index.html'"/></div>
+    网瘾测试
+    <div class="FR B4M H4M"></div>
+</header>
+<div class="W11 MTH"></div>
+<div class="W11 P1M" id="t_main"></div>
+<div class=" bgc10 none" id="t_content">
+</div>
+<div id="t_result"></div>
+<div class="W11 fix bgc10 bottom0 none" id="t_sub"><div class="H A11 bgc83 rad05e AC  MA">提交</div></div>
+<footer></footer>
+</body>
+<script>
+    function loadend() {
+        autocss();
+        loadimg();
+        getIntro();
+        // getCtn(0);
+    }
+
+    var MPAI = {
+        introduction: "YOUNG（1996）以《精神疾病诊断和统计手册·第四版》（DSM-4）中病理性赌博（Pathological Gambling）的诊断指标为基础的编制“网络成瘾量表”（internet addiction scale），医大心理根据中国国情和时代特点进行了修订。\n" +
+            "本量表的“上网”主要是指利用手机、平板、电脑、智能TV等电子设备进行上网，从事游戏、视频、刷朋友圈、购物、查看信息等娱乐行为。网络游戏成瘾完整版量表采用1到5点计分，分别代表“完全不符合、基本符合、不确定、基本符合和完全符合”，量表总分范围为20-100分。",
+        topic: [
+            {
+                t_id: 0,
+                t_title: "我上网常常超过自己事先规定的时间。"
+            },
+            {
+                t_id: 1,
+                t_title: "我经常因为上网而忘了做作业或工作。"
+            },
+            {
+                t_id: 2,
+                t_title: "我经常觉得上网比跟现实同伴一起玩更有意思。"
+            },
+            {
+                t_id: 3,
+                t_title: "我经常在网上结交新朋友或看社交信息。"
+            },
+            {
+                t_id: 4,
+                t_title: "经常听到别人抱怨我花太多时间上网娱乐。"
+            },
+            {
+                t_id: 5,
+                t_title: "我经常因为花太多时间上网而影响了学习或工作。"
+            },
+            {
+                t_id: 6,
+                t_title: "我会不顾身边需要解决的一些问题而上网或玩手机。"
+            },
+            {
+                t_id: 7,
+                t_title: "我常常觉得由于上网而影响了工作效率和考试成绩。"
+            },
+            {
+                t_id: 8,
+                t_title: "当别人问起我在上网做什么事情时，尽量隐瞒自己的行为。"
+            },
+            {
+                t_id: 9,
+                t_title: "我常常觉得通过上网能够消除生活中的烦恼。"
+            },
+            {
+                t_id: 10,
+                t_title: "我常常刚下线就迫不及待地想再次上网。"
+            },
+            {
+                t_id: 11,
+                t_title: "我常常觉得如果没有互联网娱乐，生活将变得无聊、空虚或烦躁。"
+            },
+            {
+                t_id: 12,
+                t_title: "上网时，如果有人打扰我，我会很生气。"
+            },
+            {
+                t_id: 13,
+                t_title: "我经常因为上网而缺少睡眠。"
+            },
+            {
+                t_id: 14,
+                t_title: "不上网时，我常常会觉得若有所失或对网络恋恋不舍。"
+            },
+            {
+                t_id: 15,
+                t_title: "上网时，经常对自己说，“再玩一会就不玩了”。"
+            },
+            {
+                t_id: 16,
+                t_title: "我曾想努力减少上网时间，但是觉得做不到。"
+            },
+            {
+                t_id: 17,
+                t_title: " 我经常想方设法对家人隐瞒上网时间。"
+            },
+            {
+                t_id: 18,
+                t_title: "我更愿意选择呆在网上，而不想跟别人一起玩。"
+            },
+            {
+                t_id: 19,
+                t_title: "不上网时常常觉得不开心、焦虑，而一旦重新上网，这些不快将一扫而空。"
+            }
+
+        ]
+    };
+    console.log(MPAI.introduction);
+
+    function getIntro() {
+        var main = document.getElementById("t_main");
+        var div = document.createElement("div");
+        div.innerHTML = '<div class="H10M W11 MA AC MT "><img class="H10M B10M MA" src="../images/wy.png" alt=""></div>' +
+            '<div class="M indent border08B P1M rad05e F3">' + MPAI.introduction + '</div>' +
+            '<div class="B10M H rad05e MA AC bgc103 MT2" onclick="begin_test()">开始测试</div>';
+        main.appendChild(div);
+        // <img src="../images/sublime(1).png" class="FL B4M H4M P1M"/>
+    }
+
+    function begin_test() {
+        var main = document.getElementById("t_main");
+        main.classList.add("none");
+        document.getElementById("t_content").classList.remove("none");
+        getCtn(0);
+    }
+
+    var t_value = 0;
+
+    function getCtn(d) {
+        var cont = document.getElementById("t_content");
+        var div = document.createElement("div");
+        cont.innerHTML = "";
+        MPAI.topic.forEach(function (v) {
+            if (v.t_id === d) {
+                div.innerHTML = '<div class="H2M P1M">' +
+                    '<div class="FL H2M W65 bgc7 ">' +
+                    '<div class="H2M  AR colorA bgc103 border08B" style="width: ' + ((parseInt(v.t_id) + 1) / MPAI.topic.length) * 100 + '%"></div>' +
+                    '</div>' +
+                    '<div class="FL W61 AC F3 color0A8">' + (parseInt(v.t_id) + 1) + "/" + MPAI.topic.length + '</div>' +
+                    '</div> ' +
+                    '   <div class="W11 P1M MT F4">' + (parseInt(v.t_id) + 1) + '.' + v.t_title + '</div>' +
+                    '<div class="fix bottom0 bgc10 W11 F4 LH3" id="t_radios">' +
+                    '   <div class="W11">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio1' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio1' + v.t_id + '" value="1" name="radio' + v.t_id + '"/>完全不符合' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11 ">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio2' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio2' + v.t_id + '" value="2" name="radio' + v.t_id + '"/>不符合' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11 ">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio3' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio3' + v.t_id + '" value="3" name="radio' + v.t_id + '"/>无法确定' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11 ">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio4' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio4' + v.t_id + '" value="4" name="radio' + v.t_id + '"/>符合' +
+                    '        </label>' +
+                    '    </div>' +
+                    '    <div class="W11">' +
+                    '        <label class="P05M relative inlineB W11 H11" for="radio5' + v.t_id + '">' +
+                    '        <input type="radio" class="H2M radius topM B2M  " id="radio5' + v.t_id + '" value="5" name="radio' + v.t_id + '"/>完全符合' +
+                    '        </label>' +
+                    '    </div></div>';
+            }
+
+        });
+        cont.appendChild(div);
+        var labels = document.getElementsByTagName("label");
+        for (var j in labels) {
+            labels[j].onclick = function () {
+                var radio_name = "radio" + d;
+                var radios = document.getElementsByName(radio_name);
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        i++;
+                        console.log("第"+parseInt(d+1)+"题","选择"+radios[i-1].value+"分");
+                        t_value += parseInt(radios[--i].value);
+                        console.log(t_value);
+                        if (d === MPAI.topic.length - 1) {
+                            var sub = document.getElementById("t_sub");
+                            sub.classList.remove("none");
+                            var t_radio = document.getElementById("t_radios");
+                            t_radio.classList.add("bottomH");
+                            sub.onclick = function () {
+                                this.classList.add("none");
+                                cont.classList.add("none");
+                                var t_result_cont = "";
+                                if (t_value >= 20 && t_value <= 49) {
+                                    t_result_cont = "您属于正常网络使用者";
+                                } else if (t_value >= 50 && t_value <= 79) {
+                                    t_result_cont = "您没有明显的网络游戏成瘾症状，但是已有网络游戏成瘾倾向";
+                                } else if (t_value >= 80 && t_value <= 100) {
+                                    t_result_cont = "您已经具有网络游戏成瘾症状";
+                                }
+                                var result = document.getElementById("t_result");
+                                var div = document.createElement("div");
+                                div.className = "P1M W11 MA AC";
+                                div.innerHTML = '<div class="P1M  F4 AC color8">测试得分</div>' +
+                                    '<div class="W11 P1M"><div class="AC MA F8 B14M H14M colorR"><h1 class="W11 H11"  style="background:url(../images/fen.png) no-repeat center; -webkit-background-size: cover;background-size: cover;">' + t_value + '</h1></div>' +
+                                    '</div>' +
+                                    '<div class="P1M AC F4 color8">测试分析</div>' +
+                                    '<div class="W11 AC P1M F5 bold">' + t_result_cont + '</div>' +
+                                    '<div class="MT2 W11"><div class="B10M H rad05e MA AC bgc103" onclick="window.location.reload()">重新测试</div></div>';
+                                result.appendChild(div);
+                                document.getElementsByTagName("h1")[0].style.lineHeight = 14*M +"px";
+                            }
+
+                        } else {
+                            setTimeout(function () {
+                                getCtn(d + 1);
+                            }, 200)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+</script>
+</html>
