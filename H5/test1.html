@@ -197,22 +197,21 @@
         getCtn(0);
     }
 
-    var t_value = 0;
-
     function getCtn(d) {
         var cont = document.getElementById("t_content");
-        var div = document.createElement("div");
-        cont.innerHTML = "";
         MPAI.topic.forEach(function (v) {
             if (v.t_id === d) {
+                var div = document.createElement("div");
+                div.className = "mob_test";
+                div.id = "t_test" + d;
                 div.innerHTML = '<div class="H2M P1M">' +
-                    '<div class="FL H2M W65 bgc7 ">' +
-                    '<div class="H2M  AR colorA bgc103 border08B" style="width: ' + ((parseInt(v.t_id) + 1) / MPAI.topic.length) * 100 + '%"></div>' +
+                    '<div class="FL  H2M W65 bgc7 ">' +
+                    '<div class="H2M AR colorA bgc103 border08B" style="width: ' + ((parseInt(v.t_id) + 1) / MPAI.topic.length) * 100 + '%"></div>' +
                     '</div>' +
-                    '<div class="FL W61 AC F3 color0A8">' + (parseInt(v.t_id) + 1) + "/" + MPAI.topic.length + '</div>' +
+                    '<div class="FL  W61 AC F3 color0A8">' + (parseInt(v.t_id) + 1) + "/" + MPAI.topic.length + '</div>' +
                     '</div> ' +
-                    '   <div class="W11 P1M MT F4">' + (parseInt(v.t_id) + 1) + '.' + v.t_title + '</div>' +
-                    '<div class="fix bottom0 bgc10 W11 F4 LH3" id="t_radios">' +
+                    '<div class="W11 MT F4 P1M">' + (parseInt(v.t_id) + 1) + '.' + v.t_title + '</div>' +
+                    '<div class="fix bottom0 bgc10 W11 F4 LH3 t_radios">' +
                     '   <div class="W11">' +
                     '        <label class="P05M relative inlineB W11 H11" for="radio1' + v.t_id + '">' +
                     '        <input type="radio" class="H2M radius topM B2M  " id="radio1' + v.t_id + '" value="1" name="radio' + v.t_id + '"/>完全不符合' +
@@ -238,29 +237,30 @@
                     '        <input type="radio" class="H2M radius topM B2M  " id="radio5' + v.t_id + '" value="5" name="radio' + v.t_id + '"/>完全符合' +
                     '        </label>' +
                     '    </div></div>';
+                cont.appendChild(div);
             }
 
         });
-        cont.appendChild(div);
+
         var labels = document.getElementsByTagName("label");
         for (var j in labels) {
             labels[j].onclick = function () {
                 var radio_name = "radio" + d;
+                var t_test = "t_test" + d;
                 var radios = document.getElementsByName(radio_name);
                 for (var i = 0; i < radios.length; i++) {
                     if (radios[i].checked) {
                         i++;
-                        console.log("第"+parseInt(d+1)+"题","选择"+radios[i-1].value+"分");
-                        t_value += parseInt(radios[--i].value);
-                        console.log(t_value);
+                        console.log("第" + parseInt(d + 1) + "题", "选择" + radios[i - 1].value + "分");
                         if (d === MPAI.topic.length - 1) {
                             var sub = document.getElementById("t_sub");
+                            var t_radio = document.getElementsByClassName("t_radios");
+                            t_radio[d].classList.add("bottomH");
                             sub.classList.remove("none");
-                            var t_radio = document.getElementById("t_radios");
-                            t_radio.classList.add("bottomH");
                             sub.onclick = function () {
                                 this.classList.add("none");
                                 cont.classList.add("none");
+                                var t_value = getVle();
                                 var t_result_cont = "";
                                 if (t_value >= 20 && t_value <= 49) {
                                     t_result_cont = "您属于正常网络使用者";
@@ -279,11 +279,12 @@
                                     '<div class="W11 AC P1M F5 bold">' + t_result_cont + '</div>' +
                                     '<div class="MT2 W11"><div class="B10M H rad05e MA AC bgc103" onclick="window.location.reload()">重新测试</div></div>';
                                 result.appendChild(div);
-                                document.getElementsByTagName("h1")[0].style.lineHeight = 14*M +"px";
+                                document.getElementsByTagName("h1")[0].style.lineHeight = 14 * M + "px";
                             }
 
                         } else {
                             setTimeout(function () {
+                                document.getElementById(t_test).classList.add("none");
                                 getCtn(d + 1);
                             }, 200)
                         }
@@ -294,5 +295,16 @@
 
     }
 
+    function getVle() {
+        var radios = document.querySelectorAll("input[type=radio]");
+        var cont = 0;
+        for (var i in radios) {
+            if (radios[i].checked) {
+                cont += parseInt(radios[i].value);
+            }
+        }
+        return cont;
+    }
 </script>
 </html>
+

@@ -72,13 +72,15 @@
     <div class="FL"><img src="../images/back_w.png" class="FL B4M H4M P1M"
                          onclick="window.location.href = 'index.html'"/></div>
     手机依赖症测试
-    <div class="FR B4M H4M" ></div>
+    <div class="FR B4M H4M"></div>
 </header>
 <div class="W11 MTH"></div>
 <div class="W11 P1M" id="t_main"></div>
 <div class=" bgc10 none" id="t_content"></div>
 <div id="t_result"></div>
-<div class="W11 fix bgc10 bottom0 none" id="t_sub"><div class="H A11 bgc83 rad05e AC  MA">提交</div></div>
+<div class="W11 fix bgc10 bottom0 none" id="t_sub">
+    <div class="H A11 bgc83 rad05e AC  MA">提交</div>
+</div>
 <footer></footer>
 </body>
 <script>
@@ -104,62 +106,62 @@
                 t_id: 2,
                 t_title: "有人说过你花了太多的时间在手机上面。"
             },
-            // {
-            //     t_id: 3,
-            //     t_title: "你曾试图向其他人隐瞒你在手机上花了多长时间。"
-            // },
-            // {
-            //     t_id: 4,
-            //     t_title: "你的话费经常超支"
-            // },
-            // {
-            //     t_id: 5,
-            //     t_title: "你发现自己使用手机的时间比本来打算的要长。"
-            // },
-            // {
-            //     t_id: 6,
-            //     t_title: "你尝试在手机上少花些时间但是做不到。"
-            // },
-            // {
-            //     t_id: 7,
-            //     t_title: "你从未觉得在手机上花够了时间。"
-            // },
-            // {
-            //     t_id: 8,
-            //     t_title: "你当在手机信号区以外呆上一阵时，你总担心会错过电话。"
-            // },
-            // {
-            //     t_id: 9,
-            //     t_title: "你很难做到将手机关机。"
-            // },
-            // {
-            //     t_id: 10,
-            //     t_title: "如果你有一阵子没有查看即时信息或者手机没有开机，你会变得焦虑 。"
-            // },
-            // {
-            //     t_id: 11,
-            //     t_title: "没有手机你会心神不定。"
-            // },
-            // {
-            //     t_id: 12,
-            //     t_title: "如果你没有手机，你的朋友会很难能联系到你。"
-            // },
-            // {
-            //     t_id: 13,
-            //     t_title: "当感到被孤立时，你会用手机与别人聊天。"
-            // },
-            // {
-            //     t_id: 14,
-            //     t_title: "当心情低落的时候，你会玩手机来改善情绪。"
-            // },
-            // {
-            //     t_id: 15,
-            //     t_title: "当感到孤独的时候，你会用手机与别人聊天。"
-            // },
-            // {
-            //     t_id: 16,
-            //     t_title: "你发现在有其他必须要做的事情时却沉迷于手机，为此给你带来些麻烦。"
-            // }
+            {
+                t_id: 3,
+                t_title: "你曾试图向其他人隐瞒你在手机上花了多长时间。"
+            },
+            {
+                t_id: 4,
+                t_title: "你的话费经常超支"
+            },
+            {
+                t_id: 5,
+                t_title: "你发现自己使用手机的时间比本来打算的要长。"
+            },
+            {
+                t_id: 6,
+                t_title: "你尝试在手机上少花些时间但是做不到。"
+            },
+            {
+                t_id: 7,
+                t_title: "你从未觉得在手机上花够了时间。"
+            },
+            {
+                t_id: 8,
+                t_title: "你当在手机信号区以外呆上一阵时，你总担心会错过电话。"
+            },
+            {
+                t_id: 9,
+                t_title: "你很难做到将手机关机。"
+            },
+            {
+                t_id: 10,
+                t_title: "如果你有一阵子没有查看即时信息或者手机没有开机，你会变得焦虑 。"
+            },
+            {
+                t_id: 11,
+                t_title: "没有手机你会心神不定。"
+            },
+            {
+                t_id: 12,
+                t_title: "如果你没有手机，你的朋友会很难能联系到你。"
+            },
+            {
+                t_id: 13,
+                t_title: "当感到被孤立时，你会用手机与别人聊天。"
+            },
+            {
+                t_id: 14,
+                t_title: "当心情低落的时候，你会玩手机来改善情绪。"
+            },
+            {
+                t_id: 15,
+                t_title: "当感到孤独的时候，你会用手机与别人聊天。"
+            },
+            {
+                t_id: 16,
+                t_title: "你发现在有其他必须要做的事情时却沉迷于手机，为此给你带来些麻烦。"
+            }
 
         ]
     };
@@ -184,13 +186,11 @@
 
     function getCtn(d) {
         var cont = document.getElementById("t_content");
-
-
         MPAI.topic.forEach(function (v) {
             if (v.t_id === d) {
                 var div = document.createElement("div");
                 div.className = "mob_test";
-                div.id = "t_test"+d;
+                div.id = "t_test" + d;
                 div.innerHTML = '<div class="H2M P1M">' +
                     '<div class="FL  H2M W65 bgc7 ">' +
                     '<div class="H2M AR colorA bgc103 border08B" style="width: ' + ((parseInt(v.t_id) + 1) / MPAI.topic.length) * 100 + '%"></div>' +
@@ -238,7 +238,7 @@
                 for (var i = 0; i < radios.length; i++) {
                     if (radios[i].checked) {
                         i++;
-                        console.log("第"+parseInt(d+1)+"题","选择"+radios[i-1].value+"分");
+                        console.log("第" + parseInt(d + 1) + "题", "选择" + radios[i - 1].value + "分");
                         if (d === MPAI.topic.length - 1) {
                             var sub = document.getElementById("t_sub");
                             var t_radio = document.getElementsByClassName("t_radios");
@@ -247,7 +247,7 @@
                             sub.onclick = function () {
                                 this.classList.add("none");
                                 cont.classList.add("none");
-                                var t_value =  getVle();
+                                var t_value = getVle();
                                 var t_result_cont = "";
                                 if (t_value >= 17 && t_value <= 42) {
                                     t_result_cont = "您属于正常手机使用者";
@@ -266,7 +266,7 @@
                                     '<div class="W11 AC P1M F5 bold">' + t_result_cont + '</div>' +
                                     '<div class="MT2 W11"><div class="B10M H rad05e MA AC bgc103" onclick="window.location.reload()">重新测试</div></div>';
                                 result.appendChild(div);
-                              document.getElementsByTagName("h1")[0].style.lineHeight = 14*M +"px";
+                                document.getElementsByTagName("h1")[0].style.lineHeight = 14 * M + "px";
                             }
 
                         } else {
@@ -281,15 +281,16 @@
         }
 
     }
-function getVle() {
-    var radios = document.querySelectorAll("input[type=radio]");
-    var cont = 0;
-    for (var i in radios) {
-        if (radios[i].checked) {
-            cont += parseInt(radios[i].value);
+
+    function getVle() {
+        var radios = document.querySelectorAll("input[type=radio]");
+        var cont = 0;
+        for (var i in radios) {
+            if (radios[i].checked) {
+                cont += parseInt(radios[i].value);
+            }
         }
+        return cont;
     }
-   return cont;
-}
 </script>
 </html>
